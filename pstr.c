@@ -1,35 +1,26 @@
 #include "monty.h"
 /**
- * pstr_monty - prints the string starting at the top of the stack
- * @stack: Pointer To The head
- * @line_number: The Line Number
- * Return:Void
+ * pstr_t - function that prints the string on the stack
+ * @stack: a double linked list
+ * @line_number: number of line in code to print error message.
  */
-void pstr_monty(stack_t **stack, unsigned int line_number)
+void pstr_t(stack_t **stack, unsigned int line_number)
 {
-	int i;
-	stack_t *node;
+	stack_t *p;
 	(void)line_number;
 
-	node = *stack;
-	if (*stack == NULL)
+	p = *stack;
+	if (p == NULL)
 	{
 		putchar('\n');
+		return;
 	}
-	else
+	while (p != NULL)
 	{
-		for (i = 0; node; i++)
-		{
-			if (node->n >= 65 && node->n <= 90)
-				putchar(node->n);
-			else if (node->n >= 97 && node->n <= 122)
-				putchar(node->n);
-			else if (node->n == 0)
-				node = node->next;
-			else
-				break;
-		node = node->next;
-		}
-		putchar('\n');
+		if (p->n < 1 || p->n > 127)
+			break;
+		printf("%c", (char)(p->n));
+		p = p->prev;
 	}
+	putchar('\n');
 }

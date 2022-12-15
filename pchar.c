@@ -1,47 +1,34 @@
 #include "monty.h"
 /**
- * pchar_monty -  prints the char at the top of the stack
- * @stack: Pointer To The head
- * @line_number: The Line Number
- * Return:Void
+ * _pchar - function that print the first char on a stack
+ * @stack: a double linked list
+ * @line_number: number of line in code to print error message.
  */
-void pchar_monty(stack_t **stack, unsigned int line_number)
+void _pchar(stack_t **stack, unsigned int line_number)
 {
-	stack_t *head = *stack;
-	(void)line_number;
+	stack_t *p;
 
-	if (*stack == NULL)
-		pchar_error();
-	if (head->n >= 65 && head->n <= 90)
+	p = *stack;
+	if (stack == NULL || *stack == NULL)
 	{
-		putchar(head->n);
-		putchar('\n');
+		free_stack(stack);
+		free(global[0]);
+		free(global[1]);
+		free(global[2]);
+		free(global);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
 	}
-	else if (head->n >= 97 && head->n <= 122)
+	if (p->n < 0 || p->n > 127)
 	{
-		putchar(head->n);
-		putchar('\n');
+		free_stack(stack);
+		free(global[0]);
+		free(global[1]);
+		free(global[2]);
+		free(global);
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
+		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		pchar_error_2();
-	}
-}
-/**
- * pchar_error - error in case of empty stack
- */
-void pchar_error(void)
-{
-	fprintf(stderr, "L%d: can't pchar, stack empty\n", info.l_number);
-	free_info();
-	exit(EXIT_FAILURE);
-}
-/**
- * pchar_error_2 - error in case value out of range
- */
-void pchar_error_2(void)
-{
-	fprintf(stderr, "L%d: can't pchar, value out of range\n", info.l_number);
-	free_info();
-	exit(EXIT_FAILURE);
+	putchar(p->n);
+	putchar('\n');
 }
