@@ -1,4 +1,4 @@
-nclude "monty.h"
+#include "monty.h"
 /**
  * _getopc - function that push an unteger to the stack
  * @fd: file to process
